@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "MusicPlayer",
+  "version": "0.1.0",
+  "identifier": "com.music.player",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "跨平台本地音乐播放器",
+        "width": 1000,
+        "height": 760,
+        "minWidth": 800,
+        "minHeight": 600,
+        "resizable": true,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost http://asset.localhost data:; media-src 'self' asset: https://asset.localhost http://asset.localhost data:; connect-src 'self' asset: https://asset.localhost http://asset.localhost ipc.localhost http://ipc.localhost https://ipc.localhost; style-src 'self' 'unsafe-inline';",
+      "assetProtocol": {
+        "enable": true,
+        "scope": [ "C:\\**", "D:\\**", "E:\\**", "$HOME/**" ]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [ "icons/32x32.png", "icons/128x128.png", "icons/icon.icns", "icons/icon.ico" ]
+  }
+}

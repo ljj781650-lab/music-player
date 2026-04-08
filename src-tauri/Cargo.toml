@@ -1,0 +1,30 @@
+[package]
+name = "music-player"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+# Tauri 2.x 核心
+tauri = { version = "2.0", features = ["protocol-asset"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+# 异步扫描
+tokio = { version = "1.0", features = ["full"] }
+walkdir = "2.4"
+# 元数据解析 + 乱码修复
+id3 = "1.0"
+encoding_rs = "0.8"
+# 封面图 base64 编码
+base64 = "0.22"
+# SQLite 数据库（bundled = 自带 SQLite，无需系统安装）
+rusqlite = { version = "0.31", features = ["bundled"] }
+# 音频时长计算
+mp3-duration = "0.1"
+metaflac = "0.2"
+# Tauri 插件
+tauri-plugin-dialog = "2.0"
+tauri-plugin-fs = "2.0"
