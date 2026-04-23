@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, nextTick, computed, watch } from 'vue'
-import { invoke } from '@tauri-apps/api/core'
+import { invoke, convertFileSrc } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 import { open } from '@tauri-apps/plugin-dialog'
 import { readTextFile } from '@tauri-apps/plugin-fs'
@@ -118,8 +118,8 @@ const drawSpectrum = () => {
   ctx.clearRect(0, 0, size, size)
 
   // 封面半径 89px，容器 300px → 比例 89/150 ≈ 0.593（半容器=150）
-  const innerR  = size * 0.297   // = 89px when size=300（刚好封面边缘）
-  const maxBarH = size * 0.20    // 最大柱高60px，有张力
+  const innerR  = size * 0.26   // = 89px when size=300（刚好封面边缘）
+  const maxBarH = size * 0.18    // 最大柱高60px，有张力
   const barCount = 60
   const step = Math.floor(bins * 0.7 / barCount)
 
@@ -227,12 +227,19 @@ const playMusic = async (item) => {
   currentTrack.value = item; currentTime.value = 0; totalDuration.value = 0
   stopSpectrum()
   await loadLrc(item.path)
+  
   try {
     audioRef.value.pause()
-    audioRef.value.src = buildUrl(item.path)
-    await nextTick(); audioRef.value.load()
+    
+    // 【关键修改点】：删掉原来的 buildUrl 逻辑，改用 Tauri 官方钥匙
+    audioRef.value.src = convertFileSrc(item.path)
+    
+    await nextTick(); 
+    audioRef.value.load()
     await audioRef.value.play()
-  } catch (e) { if (e.name !== 'AbortError') console.error(e.message) }
+  } catch (e) { 
+    if (e.name !== 'AbortError') console.error(e.message) 
+  }
 }
 
 const togglePlay = async () => {
@@ -480,9 +487,8 @@ button{font-family:inherit;cursor:pointer}ul{list-style:none}
   padding:28px 24px 0;gap:14px;
   background:rgba(0,0,0,0.18);
   border-right:1px solid rgba(255,255,255,0.08);
-  overflow:hidden;
-}
-
+  overflow:visible;
+  }
 /* ── 封面容器：放大到 260px ── */
 .cover-container{
   position:relative;

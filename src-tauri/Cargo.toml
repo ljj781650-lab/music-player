@@ -12,19 +12,20 @@ tauri-build = { version = "2.0", features = [] }
 tauri = { version = "2.0", features = ["protocol-asset"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-# 异步扫描
+
+# 异步任务
 tokio = { version = "1.0", features = ["full"] }
 walkdir = "2.4"
-# 元数据解析 + 乱码修复
-id3 = "1.0"
-encoding_rs = "0.8"
+
+# 核心：元数据解析（一个库顶替原来的 id3/mp3-duration/metaflac，支持自动修复乱码）
+lofty = "0.21" 
+
 # 封面图 base64 编码
 base64 = "0.22"
-# SQLite 数据库（bundled = 自带 SQLite，无需系统安装）
+
+# SQLite 数据库
 rusqlite = { version = "0.31", features = ["bundled"] }
-# 音频时长计算
-mp3-duration = "0.1"
-metaflac = "0.2"
+
 # Tauri 插件
 tauri-plugin-dialog = "2.0"
 tauri-plugin-fs = "2.0"
