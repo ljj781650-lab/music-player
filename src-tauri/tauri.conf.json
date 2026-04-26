@@ -25,7 +25,7 @@
       "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost http://asset.localhost data:; media-src 'self' asset: https://asset.localhost http://asset.localhost data:; connect-src 'self' asset: https://asset.localhost http://asset.localhost ipc.localhost http://ipc.localhost https://ipc.localhost; style-src 'self' 'unsafe-inline';",
       "assetProtocol": {
         "enable": true,
-        "scope": [ "C:\\**", "D:\\**", "E:\\**", "$HOME/**" ]
+        "scope": [ "C:\\*", "D:\\*", "E:\\*", "$HOME/*" ]
       }
     }
   },
